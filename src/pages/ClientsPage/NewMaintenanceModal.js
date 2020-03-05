@@ -46,7 +46,7 @@ class NewMaintenanceModal extends Component {
             this.setState({ messageHidden: true, messageText: '', submitBtn: false })
         }
 
-    API.post('maintenance/create/'+client_id, 'datum='+datum+'&munkatars='+munkatars+'&megjegyzes='+megjegyzes+'&API_SECRET='+API_SECRET)
+    API.post('maintenance/create/'+client_id, 'datum='+datum+'&munkatars='+encodeURIComponent(munkatars)+'&megjegyzes='+encodeURIComponent(megjegyzes)+'&API_SECRET='+API_SECRET)
         .then(res => {
             var response = res.data;
             if(response.error){

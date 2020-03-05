@@ -91,7 +91,7 @@ class NewListPage extends Component {
             this.setState({ saveListBtn: false })
         }
         
-        API.post('maintenance/createlist/', 'list='+list+'&munkatars='+munkatars+'&megjegyzes='+megjegyzes+'&megjegyzes_munkatars='+megjegyzes_munkatars+'&utvonal='+encodeURIComponent(utvonal)+'&API_SECRET='+API_SECRET)
+        API.post('maintenance/createlist/', 'list='+list+'&munkatars='+encodeURIComponent(munkatars)+'&megjegyzes='+encodeURIComponent(megjegyzes)+'&megjegyzes_munkatars='+encodeURIComponent(megjegyzes_munkatars)+'&utvonal='+encodeURIComponent(utvonal)+'&API_SECRET='+API_SECRET)
         .then(res => {
             console.log(res)
             var response = res.data;

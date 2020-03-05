@@ -111,7 +111,7 @@ class ClientPage extends Component {
     }else{
         this.setState({ saveClientBtn: false })
     }
-    API.post('clients/updateClient/'+this.state.client_id, 'cegnev='+cegnev+'&szekhely='+szekhely+'&szamlazasi_cim='+szamlazasi_cim+'&kapcs_nev='+kapcs_nev+'&kapcs_email='+kapcs_email+'&kapcs_telefon='+kapcs_telefon+'&API_SECRET='+API_SECRET)
+    API.post('clients/updateClient/'+this.state.client_id, 'cegnev='+encodeURIComponent(cegnev)+'&szekhely='+encodeURIComponent(szekhely)+'&szamlazasi_cim='+encodeURIComponent(szamlazasi_cim)+'&kapcs_nev='+encodeURIComponent(kapcs_nev)+'&kapcs_email='+encodeURIComponent(kapcs_email)+'&kapcs_telefon='+encodeURIComponent(kapcs_telefon)+'&API_SECRET='+API_SECRET)
       .then(res => {
         var response = res.data
         if(response.success){
@@ -204,7 +204,7 @@ class ClientPage extends Component {
     }else{
         this.setState({ saveHutokamraBtn: false })
     }
-    API.post('clients/updateHutokamra/'+this.state.client_id, 'kamra_cim='+kamra_cim+'&kamra_latitude='+kamra_latitude+'&kamra_longitude='+kamra_longitude+'&API_SECRET='+API_SECRET)
+    API.post('clients/updateHutokamra/'+this.state.client_id, 'kamra_cim='+encodeURIComponent(kamra_cim)+'&kamra_latitude='+kamra_latitude+'&kamra_longitude='+kamra_longitude+'&API_SECRET='+API_SECRET)
       .then(res => {
         var response = res.data
         if(response.success){

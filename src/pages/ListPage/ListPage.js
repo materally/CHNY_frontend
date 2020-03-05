@@ -100,7 +100,7 @@ class ListPage extends Component {
                                     <Table.HeaderCell>Cégnév</Table.HeaderCell>
                                     <Table.HeaderCell>Kapcsolattartó</Table.HeaderCell>
                                     <Table.HeaderCell>Kamra címe</Table.HeaderCell>
-                                    <Table.HeaderCell>Kamra koordinátái</Table.HeaderCell>
+                                    <Table.HeaderCell>GPS koordináták</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>

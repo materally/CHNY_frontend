@@ -48,7 +48,7 @@ class NewClientModal extends Component {
             this.setState({ messageHidden: true, messageText: '', submitBtn: false })
         }
         
-        API.post('clients/create', 'cegnev='+cegnev+'&szamlazasi_cim='+szamlazasi_cim+'&szekhely='+szekhely+'&kapcs_nev='+kapcs_nev+'&kapcs_telefon='+kapcs_telefon+'&kapcs_email='+kapcs_email+'&kamra_cim='+kamra_cim+'&kamra_latitude='+kamra_latitude+'&kamra_longitude='+kamra_longitude+'&utolso_karbantartas='+utolso_karbantartas+'&API_SECRET='+API_SECRET)
+        API.post('clients/create', 'cegnev='+encodeURIComponent(cegnev)+'&szamlazasi_cim='+encodeURIComponent(szamlazasi_cim)+'&szekhely='+encodeURIComponent(szekhely)+'&kapcs_nev='+encodeURIComponent(kapcs_nev)+'&kapcs_telefon='+encodeURIComponent(kapcs_telefon)+'&kapcs_email='+encodeURIComponent(kapcs_email)+'&kamra_cim='+encodeURIComponent(kamra_cim)+'&kamra_latitude='+kamra_latitude+'&kamra_longitude='+kamra_longitude+'&utolso_karbantartas='+utolso_karbantartas+'&API_SECRET='+API_SECRET)
             .then(res => {
                 var response = res.data;
                 var client_id = response.client_id;
