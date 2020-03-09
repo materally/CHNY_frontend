@@ -1,0 +1,15 @@
+
+a.item {
+    font-weight: bold!important;
+    font-family: 'Play', sans-serif !important;
+    text-transform: uppercase !important;
+}
+
+a.item:hover {
+    color:white !important;
+    background: #0276de !important;
+}
+
+.ui.menu.fixed, .ui.menu.fixed .item:first-child, .ui.menu.fixed .item:last-child {
+    border-radius: 5px!important;
+}

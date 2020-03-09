@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Image, Menu } from 'semantic-ui-react'
+import { Container, Image, Menu, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth-context';
+
+import './Header.css';
 
 class PageHeader extends Component {
     static contextType = AuthContext;
@@ -12,18 +14,18 @@ class PageHeader extends Component {
     }
     render(){
         return (
-            <Menu fixed='top'>
+            <Menu secondary fixed='top' style={{ background: 'white', borderBottomWidth: 2, borderBottomColor: '#0276DE', borderBottomStyle: 'solid' }}>
                 <Container>
-                    <Menu.Item as='a' header>
-                        <Image size='small' src={process.env.PUBLIC_URL + '/header.png'} />
+                    <Menu.Item header style={{ paddingLeft: '0px' }}>
+                        <Image size='medium' src={process.env.PUBLIC_URL + '/header.png'} />
                     </Menu.Item>
 
-                    <Menu.Item as={Link} to="/">Térkép</Menu.Item>
+                    <Menu.Item as={Link} to="/"><Icon name='map marker' /> Térkép</Menu.Item>
 
-                    <Menu.Item as={Link} to="/clients">Ügyféltörzs</Menu.Item>
-                    <Menu.Item as={Link} to="/list">Karbantartási listák</Menu.Item>
+                    <Menu.Item as={Link} to="/clients"><Icon name='users' /> Ügyféltörzs</Menu.Item>
+                    <Menu.Item as={Link} to="/list"><Icon name='list' /> Karbantartási listák</Menu.Item>
 
-                    <Menu.Item name='logout' as='a' onClick={ () => this.context.logout() }>Kijelentkezés</Menu.Item>
+                    <Menu.Item as='a' position='right' className='logoutMenuItem'><Icon name='sign-out' /></Menu.Item>
                 </Container>
             </Menu>
         )

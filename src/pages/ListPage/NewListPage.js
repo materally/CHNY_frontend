@@ -58,7 +58,7 @@ class NewListPage extends Component {
         return (
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <Button
-                    positive
+                    color='blue'
                     icon='save'
                     labelPosition='right'
                     content="Lista mentése"
@@ -132,7 +132,7 @@ class NewListPage extends Component {
         <React.Fragment>
             <Container>
                 <PageHeader />
-                <p style={{ marginTop: '5em' }}></p>
+                <p style={{ marginTop: '6em' }}></p>
                 <div style={{ paddingBottom: '3em' }}>
                     <Header as='h2' floated='left'>Új lista</Header>
                 </div>

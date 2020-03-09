@@ -143,7 +143,7 @@ class NewClientModal extends Component {
                 <Modal.Actions>
                     <Button color='grey' onClick={this.closeModal}>Mégsem</Button>
                     <Button
-                        positive
+                        color='blue'
                         icon='checkmark'
                         labelPosition='right'
                         content="Ügyfél létrehozása"

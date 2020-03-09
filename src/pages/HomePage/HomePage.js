@@ -86,7 +86,7 @@ class HomePage extends Component {
               </Card.Content>
               <Card.Content extra style={{ textAlign: 'right' }}>
                 <Button
-                    positive
+                    color='blue'
                     compact
                     size='mini'
                     icon='plus'
@@ -126,7 +126,7 @@ class HomePage extends Component {
       <div style={{ textAlign: 'center' }}>
         <Button color='grey' compact onClick={ () => this.setState({ list: [] }) }>Lista ürítése</Button>
         <Button
-            positive
+            color='blue'
             compact
             icon='arrow circle right'
             labelPosition='right'

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from '../../components/Header/Header';
+import PageFooter from '../../components/Footer/Footer';
+import '../../components/Footer/Footer.css';
+import '../../components/Font.css';
 import { Container, Header, Table } from 'semantic-ui-react';
 import API, { API_SECRET } from '../../api';
 
@@ -26,12 +29,12 @@ class ListListPage extends Component {
 
     render() { 
         return ( 
-        <React.Fragment>
-            <Container>
+        <div className="Site">
+            <Container className="Site-content">
                 <PageHeader />
-                <p style={{ marginTop: '5em' }}></p>
+                <p style={{ marginTop: '6em' }}></p>
                 <div style={{ paddingBottom: '3em' }}>
-                    <Header as='h2' floated='left'>Karbantartási listák</Header>
+                    <Header as='h2' floated='left' className='CH_Font_Title'>Karbantartási listák</Header>
                 </div>
                {
                    (this.state.data.length === 0) ? <h4>Még nincs karbantartási lista</h4> : 
@@ -61,7 +64,8 @@ class ListListPage extends Component {
                     </Table>
                } 
             </Container>
-        </React.Fragment> );
+            <PageFooter />
+        </div> );
     }
 }
  

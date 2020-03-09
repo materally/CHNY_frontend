@@ -4,9 +4,11 @@ import API, { API_SECRET } from '../../api';
 import Swal from 'sweetalert2';
 
 import PageHeader from '../../components/Header/Header';
+import '../../components/Font.css';
 import PlaceholderComponent from '../../components/Placeholder/Placeholder';
 import EditMaintenanceModal from './EditMaintenanceModal';
 import NewMaintenanceModal from './NewMaintenanceModal';
+import PageFooter from '../../components/Footer/Footer';
 
 class ClientPage extends Component {
   constructor(props) {
@@ -65,14 +67,14 @@ class ClientPage extends Component {
   pageInfo(){
     return(  
       <Card.Group>
-        <Card>
+        <Card color='blue'>
           <Card.Content>
             <Card.Header>{this.state.data.cegnev}</Card.Header>
             <Card.Description><b>Székhely:</b> {this.state.data.szekhely}</Card.Description>
             <Card.Description><b>Számlázási cím:</b> {this.state.data.szamlazasi_cim}</Card.Description>
           </Card.Content>
         </Card>
-        <Card>
+        <Card color='blue'>
           <Card.Content>
             <Card.Header>Kapcsolattartó</Card.Header>
             <Card.Description style={{ paddingBottom: '10px' }}><b>{this.state.data.kapcs_nev}</b></Card.Description>
@@ -80,7 +82,7 @@ class ClientPage extends Component {
             <Card.Description><Icon name='phone' /> {this.state.data.kapcs_telefon}</Card.Description>
           </Card.Content>
         </Card>
-        <Card>
+        <Card color='blue'>
           <Card.Content>
             <Card.Header>Hűtőkamra</Card.Header>
             <Card.Meta><b>Utolsó karbantartás: </b>{this.state.data.utolso_karbantartas}</Card.Meta>
@@ -173,7 +175,7 @@ class ClientPage extends Component {
           </Form.Field>
           <div style={{ textAlign: 'center' }}>
             <Button type='submit'
-                    positive
+                    color='blue'
                     icon='save'
                     labelPosition='right'
                     content="Módosítások mentése"
@@ -258,7 +260,7 @@ class ClientPage extends Component {
           </Form.Group>
           <div style={{ textAlign: 'center' }}>
             <Button type='submit'
-                    positive
+                    color='blue'
                     icon='save'
                     labelPosition='right'
                     content="Módosítások mentése"
@@ -341,19 +343,20 @@ class ClientPage extends Component {
     ]
     return (
     <React.Fragment>
-      <h1>{this.state.data.cegnev}</h1>
-      <Tab menu={{ secondary: true, pointing: true }} panes={menus} />
+      <h1 className='CH_Font_Title' style={{ marginTop: '6px' }}>{this.state.data.cegnev}</h1>
+      <Tab menu={{ secondary: true, pointing: true }} panes={menus}/>
     </React.Fragment>
     )
   }
 
   render() { 
     return ( 
-      <Container>
+      <div className="Site">
+      <Container className="Site-content">
         <PageHeader />
-        <p style={{ marginTop: '5em' }}></p>
-        <Button basic labelPosition='left' icon='left chevron' content='Vissza' onClick={ () => this.backToClients() } />
-        {(this.state.data) ? this.renderInfo() : <PlaceholderComponent /> }
+        <p style={{ marginTop: '6em' }}></p>
+        <Icon name='chevron circle left' size='large' color='blue' onClick={ () => this.backToClients() } className='hoverEffect'/>
+        {(this.state.data.length !== 0) ? this.renderInfo() : <PlaceholderComponent /> }
 
         <NewMaintenanceModal 
           openModal={this.state.openModalNewMaintenance} 
@@ -381,6 +384,8 @@ class ClientPage extends Component {
         />
 
       </Container>
+      <PageFooter />
+      </div>
     );
   }
 }

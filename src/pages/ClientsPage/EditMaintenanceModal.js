@@ -100,7 +100,7 @@ class EditMaintenanceModal extends Component {
                 <Modal.Actions>
                     <Button color='grey' onClick={this.closeModal}>Mégsem</Button>
                     <Button
-                        positive
+                        color='blue'
                         compact
                         icon='checkmark'
                         labelPosition='right'

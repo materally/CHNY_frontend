@@ -3,6 +3,7 @@ import PageHeader from '../../components/Header/Header';
 import { Container, Header, Divider, Table, Button } from 'semantic-ui-react';
 import API, { API_SECRET } from '../../api';
 import PlaceholderComponent from '../../components/Placeholder/Placeholder';
+import PageFooter from '../../components/Footer/Footer';
 
 class ListPage extends Component {
     constructor(props) {
@@ -45,14 +46,14 @@ class ListPage extends Component {
         return (
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <Button
-                    positive
+                    color='blue'
                     icon='file pdf'
                     labelPosition='left'
                     content="PDF megtekintés"
                     onClick={ () => this.openPDF() }
                 />
                 <Button
-                    positive
+                    color='blue'
                     icon='map'
                     labelPosition='right'
                     content="Útvonaltervezés"
@@ -64,10 +65,10 @@ class ListPage extends Component {
 
     render() {
         return(
-        <React.Fragment>
-            <Container>
+        <div className="Site">
+            <Container className="Site-content">
                 <PageHeader />
-                <p style={{ marginTop: '5em' }}></p>
+                <p style={{ marginTop: '6em' }}></p>
                 {
                     (this.state.data.length === 0) ? <PlaceholderComponent /> : 
                     <React.Fragment>
@@ -120,7 +121,8 @@ class ListPage extends Component {
                 </React.Fragment>
                 }
             </Container>
-        </React.Fragment> 
+            <PageFooter />
+        </div> 
         )
     }
 }

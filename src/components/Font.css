@@ -1,0 +1,11 @@
+
+.CH_Font_Title {
+    font-weight: bold!important;
+    font-family: 'Play', sans-serif !important;
+    text-transform: uppercase !important;
+    font-size: 22px!important;
+}
+
+.hoverEffect {
+    cursor: pointer!important;
+}
