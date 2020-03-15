@@ -172,7 +172,7 @@ class HomePage extends Component {
             </ReactMapGL>
           </div>
         </div>
-        <div style={{ float:'right', borderLeftColor: '#d6d6d6', borderLeftWidth: '1px', borderLeftStyle: 'solid', padding: '10px', width:'29%'}}>
+        <div style={{ float:'right', borderLeftColor: '#d6d6d6', borderLeftWidth: '1px', borderLeftStyle: 'solid', padding: '10px', width:'29%', backgroundColor: 'white'}}>
           <h4>Karbantartási listára kijelölve:</h4>
           {
             (this.state.list.length > 0) ? this._renderList() : <h5>Még nincs kijelölt hűtőkamra!</h5>

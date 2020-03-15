@@ -70,8 +70,8 @@ class ListPage extends Component {
                 <PageHeader />
                 <p style={{ marginTop: '6em' }}></p>
                 {
-                    (this.state.data.length === 0) ? <PlaceholderComponent /> : 
-                    <React.Fragment>
+                    (this.state.data.length === 0) ? <PlaceholderComponent /> :  
+                    <div style={{ backgroundColor: 'white', padding: '20px' }}>
                         <Button basic labelPosition='left' icon='left chevron' content='Vissza' onClick={ () => this.props.history.push("/list") } />
                         <Divider horizontal>
                             <Header as='h4'>
@@ -118,7 +118,7 @@ class ListPage extends Component {
                             </Table.Body>
                         </Table>
                     {this.renderButtons()}
-                </React.Fragment>
+                </div>
                 }
             </Container>
             <PageFooter />

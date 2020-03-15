@@ -33,7 +33,9 @@ class ClientPage extends Component {
         editMaintenance: [],
         deleteMaintenanceConfirmWindow: false,
         deleteMaintenanceId: 0,
-        openModalNewMaintenance: false
+        openModalNewMaintenance: false,
+        confirmDelete: false,
+        deleteClientBtn: true
     }
     this.getData();
     this.handleChange = this.handleChange.bind(this)
@@ -145,6 +147,17 @@ class ClientPage extends Component {
       });
   }
 
+  deleteClient(){
+    API.post('clients/delete/', 'client_id='+this.state.client_id+'&API_SECRET='+API_SECRET)
+    .then(res => {
+        var response = res.data;
+        if(response.success){
+          this.backToClients()
+        }
+    })
+    .catch(error => console.log("Error: "+error));
+  }
+
   pageBeallitasok(){
     return (
       <React.Fragment>
@@ -174,6 +187,15 @@ class ClientPage extends Component {
               <input placeholder='Kapcsolattartó e-mail címe' name='kapcs_email' value={this.state.kapcs_email} onChange={this.handleChange}/>
           </Form.Field>
           <div style={{ textAlign: 'center' }}>
+          <Button type='submit'
+                    color='red'
+                    icon='trash'
+                    labelPosition='left'
+                    content="Ügyfél törlése"
+                    onClick={ () => this.setState({ confirmDelete: true }) }
+                    disabled={!this.state.deleteClientBtn}
+                    loading={!this.state.deleteClientBtn}
+            />
             <Button type='submit'
                     color='blue'
                     icon='save'
@@ -356,7 +378,9 @@ class ClientPage extends Component {
         <PageHeader />
         <p style={{ marginTop: '6em' }}></p>
         <Icon name='chevron circle left' size='large' color='blue' onClick={ () => this.backToClients() } className='hoverEffect'/>
-        {(this.state.data.length !== 0) ? this.renderInfo() : <PlaceholderComponent /> }
+        <div style={{ backgroundColor: 'white', padding: '20px' }}>
+          {(this.state.data.length !== 0) ? this.renderInfo() : <PlaceholderComponent /> }
+        </div>
 
         <NewMaintenanceModal 
           openModal={this.state.openModalNewMaintenance} 
@@ -381,6 +405,16 @@ class ClientPage extends Component {
           open={this.state.deleteMaintenanceConfirmWindow}
           onCancel={ () => this.setState({ deleteMaintenanceConfirmWindow: false }) }
           onConfirm={ () => this.deleteMaintenance() }
+        />
+
+        <Confirm
+          content='Biztos vagy benne? A művelet nem vonható vissza!'
+          size='tiny'
+          cancelButton='Mégsem'
+          confirmButton='Mehet'
+          open={this.state.confirmDelete}
+          onCancel={ () => this.setState({ confirmDelete: false }) }
+          onConfirm={ () => this.deleteClient() }
         />
 
       </Container>
