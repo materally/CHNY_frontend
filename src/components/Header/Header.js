@@ -25,7 +25,7 @@ class PageHeader extends Component {
                     <Menu.Item as={Link} to="/clients"><Icon name='users' /> Ügyféltörzs</Menu.Item>
                     <Menu.Item as={Link} to="/list"><Icon name='list' /> Karbantartási listák</Menu.Item>
 
-                    <Menu.Item as='a' position='right' className='logoutMenuItem'><Icon name='sign-out' /></Menu.Item>
+                    <Menu.Item as='a' position='right' className='logoutMenuItem' onClick={ () => this.context.logout() }><Icon name='sign-out' /></Menu.Item>
                 </Container>
             </Menu>
         )

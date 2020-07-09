@@ -31,6 +31,7 @@ class HomePage extends Component {
     API.get(`clients/getMarkersForMap`)
     .then(res => {
         var response = res.data;
+        console.log(res)
         if(response){
           this.setState({ markers: response })
         }
@@ -52,6 +53,9 @@ class HomePage extends Component {
         timer: 1500
       })
     }else{
+      
+      console.log(item)
+      
       this.setState({
         list: [...this.state.list, item],
         popupInfo: null

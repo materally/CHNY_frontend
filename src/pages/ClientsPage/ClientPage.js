@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Tab, Card, Icon, Form, Table, Confirm } from 'semantic-ui-react'
+import { Container, Button, Tab, Card, Icon, Form, Table, Confirm, Popup } from 'semantic-ui-react'
 import API, { API_SECRET } from '../../api';
 import Swal from 'sweetalert2';
 
@@ -35,7 +35,10 @@ class ClientPage extends Component {
         deleteMaintenanceId: 0,
         openModalNewMaintenance: false,
         confirmDelete: false,
-        deleteClientBtn: true
+        deleteClientBtn: true,
+
+        checkedConfirm: false,
+        checkedId: 0
     }
     this.getData();
     this.handleChange = this.handleChange.bind(this)
@@ -307,31 +310,52 @@ class ClientPage extends Component {
     .catch(error => console.log("Error: "+error));
   }
 
+  checkedMaintenance(){
+    API.post('maintenance/checked/'+this.state.checkedId, '&API_SECRET='+API_SECRET)
+    .then(res => {
+      console.log(res)
+        var response = res.statusText;
+        if(response === "OK"){
+          this.setState({ checkedId: 0, checkedConfirm: false }, () => this.getData());
+        }
+    })
+    .catch(error => console.log("Error: "+error));
+  }
+
   pageKarbantartasok(){
     return (
       <React.Fragment>
         {/* <Button floated='right' compact labelPosition='right' icon='plus square' color='green' content='Új karbantartás hozzáadása' onClick={ () => this.setState({ openModalNewMaintenance: !this.state.openModalNewMaintenance})  }/> */}
           {
             (this.state.data.client_maintenances.length !== 0) ? (
-              <Table striped selectable style={{ marginTop: '60px' }}>
+              <Table striped style={{ marginTop: '60px' }}>
                   <Table.Header>
                   <Table.Row>
                       <Table.HeaderCell>Dátum</Table.HeaderCell>
-                      <Table.HeaderCell>Munkatárs</Table.HeaderCell>
-                      <Table.HeaderCell>Megtekintés</Table.HeaderCell>
+                      <Table.HeaderCell>Elvégezve</Table.HeaderCell>
+                      {/* <Table.HeaderCell>Munkatárs</Table.HeaderCell> */}
+                      <Table.HeaderCell>Karbantartási listán</Table.HeaderCell>
                       <Table.HeaderCell>&nbsp;</Table.HeaderCell>
                   </Table.Row>
                   </Table.Header>
                   <Table.Body>
                       {
                           this.state.data.client_maintenances.map((maintenance) => (
-                              <Table.Row key={maintenance.maintenance_id}>
+                              <Table.Row key={maintenance.maintenance_id} style={{ backgroundColor: (maintenance.elvegezve === 0) ? 'antiquewhite' : 'darkseagreen' }}>
                                   <Table.Cell>{maintenance.datum}</Table.Cell>
-                                  <Table.Cell>{maintenance.list_info.munkatars}</Table.Cell>
-                                  <Table.Cell><a href={`../list/${maintenance.list_info.list_id}`}>lista megtekintés</a></Table.Cell>
+                                  <Table.Cell>{maintenance.elvegezve_datum}</Table.Cell>
+                                  {/* <Table.Cell>{maintenance.list_info.munkatars}</Table.Cell> */}
+                                  <Table.Cell>
+                                    {
+                                      (maintenance.list_id !== -1) ? <a href={`../list/${maintenance.list_info.list_id}`}>lista megtekintés</a> : null
+                                    }</Table.Cell>
                                   <Table.Cell style={{ textAlign: 'right' }}>
                                     {/* <Icon link name='edit' color='blue' onClick={ () => this.setState({ editMaintenanceId: maintenance.maintenance_id, openModalEditMaintenance: true, editMaintenance: maintenance }) }/> */}
-                                    <Icon link name='trash' color='red' onClick={ () => this.setState({ deleteMaintenanceConfirmWindow: true, deleteMaintenanceId: maintenance.maintenance_id }) }/>
+                                    {/* <Icon link name='trash' color='red' onClick={ () => this.setState({ deleteMaintenanceConfirmWindow: true, deleteMaintenanceId: maintenance.maintenance_id }) }/> */}
+                                    {
+                                      (maintenance.elvegezve === 0) ? <Popup content='Karbantartás elvégezve' trigger={<Button icon='check' className="green" onClick={ () => this.setState({ checkedConfirm: true, checkedId: maintenance.maintenance_id }) }/>} /> : null
+                                    }
+                                    
                                   </Table.Cell>
                               </Table.Row>
                           ))
@@ -415,6 +439,16 @@ class ClientPage extends Component {
           open={this.state.confirmDelete}
           onCancel={ () => this.setState({ confirmDelete: false }) }
           onConfirm={ () => this.deleteClient() }
+        />
+
+        <Confirm
+          content='Biztos vagy benne? A művelet nem vonható vissza!'
+          size='tiny'
+          cancelButton='Mégsem'
+          confirmButton='Mehet'
+          open={this.state.checkedConfirm}
+          onCancel={ () => this.setState({ checkedConfirm: false }) }
+          onConfirm={ () => this.checkedMaintenance() }
         />
 
       </Container>
