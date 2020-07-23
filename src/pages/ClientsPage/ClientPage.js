@@ -70,6 +70,9 @@ class ClientPage extends Component {
   }
 
   pageInfo(){
+    const count = this.state.data.client_maintenances.length;
+    const utolso_karbantartas = (count === 1) ? this.state.data.client_maintenances[0].datum : this.state.data.client_maintenances[1].datum;
+    const kovetkezo_karbantartas = (count === 1) ? '-' : this.state.data.client_maintenances[0].datum;
     return(  
       <Card.Group>
         <Card color='blue'>
@@ -90,8 +93,8 @@ class ClientPage extends Component {
         <Card color='blue'>
           <Card.Content>
             <Card.Header>Hűtőkamra</Card.Header>
-            <Card.Meta><b>Utolsó karbantartás: </b>{this.state.data.utolso_karbantartas}</Card.Meta>
-            <Card.Meta><b>Következő karbantartás: </b>{this.state.data.kovetkezo_karbantartas}</Card.Meta>
+            <Card.Meta><b>Utolsó karbantartás: </b>{utolso_karbantartas}</Card.Meta>
+            <Card.Meta><b>Következő karbantartás: </b>{kovetkezo_karbantartas}</Card.Meta>
             <Card.Description><Icon name='point' /><b>{this.state.data.kamra_cim}</b></Card.Description>
             <Card.Description><Icon name='pin' /> {this.state.data.kamra_latitude}</Card.Description>
             <Card.Description><Icon name='pin' /> {this.state.data.kamra_longitude}</Card.Description>

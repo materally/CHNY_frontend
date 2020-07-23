@@ -31,7 +31,6 @@ class HomePage extends Component {
     API.get(`clients/getMarkersForMap`)
     .then(res => {
         var response = res.data;
-        console.log(res)
         if(response){
           this.setState({ markers: response })
         }
@@ -40,7 +39,7 @@ class HomePage extends Component {
   }
 
   _onClickMarker = marker => {
-    this.setState({popupInfo: marker });
+    this.setState({ popupInfo: marker });
   };
 
   addItemToList(item){
@@ -53,9 +52,7 @@ class HomePage extends Component {
         timer: 1500
       })
     }else{
-      
-      console.log(item)
-      
+      this.state.markers.find(someobject => someobject.data.client_id === item.client_id).fill = "#09b500"
       this.setState({
         list: [...this.state.list, item],
         popupInfo: null
@@ -63,10 +60,12 @@ class HomePage extends Component {
     }
   }
 
-  removeItemFromList(i) {
+  removeItemFromList(i, item) {
     const list = this.state.list;
     list.splice(i, 1);
     this.setState({ list });
+    const original_fill = this.state.markers.find(someobject => someobject.data.client_id === item.client_id).original_fill
+    this.state.markers.find(someobject => someobject.data.client_id === item.client_id).fill = original_fill
   }
 
   _renderPopup() {
@@ -85,7 +84,8 @@ class HomePage extends Component {
             <Card>
               <Card.Content>
                 <Card.Header>{popupInfo.data.cegnev}</Card.Header>
-                <Card.Meta>Utolsó karbantartás: {popupInfo.data.utolso_karbantartas}</Card.Meta>
+                <Card.Meta>Utolsó karbantartás: {popupInfo.utolso_karbantartas.datum}</Card.Meta>
+                <Card.Meta>Következő karbantartás: {popupInfo.kovetkezo_karbantartas}</Card.Meta>
                 <Card.Description><b>Kamra címe: </b>{popupInfo.data.kamra_cim}</Card.Description>
               </Card.Content>
               <Card.Content extra style={{ textAlign: 'right' }}>
@@ -118,7 +118,7 @@ class HomePage extends Component {
         this.state.list.map((listItem, i) => (
           <List key={listItem.client_id}>
             <List.Item>
-              <Icon name='trash alternate outline' className='cursorHover' color='red' onClick={ () => this.removeItemFromList(i) } />
+              <Icon name='trash alternate outline' className='cursorHover' color='red' onClick={ () => this.removeItemFromList(i, listItem) } />
               <List.Content>
                 <List.Header>{listItem.cegnev}</List.Header>
                 <List.Description>{listItem.kamra_cim}</List.Description>
@@ -128,7 +128,7 @@ class HomePage extends Component {
         ))
       }
       <div style={{ textAlign: 'center' }}>
-        <Button color='grey' compact onClick={ () => this.setState({ list: [] }) }>Lista ürítése</Button>
+        <Button color='grey' compact onClick={ () => { this.setState({ list: [] }); this.getData() } }>Lista ürítése</Button>
         <Button
             color='blue'
             compact

@@ -27,6 +27,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "proxy": "http://backend.charliehuto.hu/public/",
   "browserslist": {
     "production": [
       ">0.2%",

@@ -77,14 +77,16 @@ class ClientsPage extends Component {
             </Table.Header>
             <Table.Body>
                 {
-                    this.state.filteredData.map((client) => (
-                        <Table.Row key={client.client_id} onClick={ () => this.selectClient(client.client_id) } className="stripedTableTr">
+                    this.state.filteredData.map((client) => {
+                        const count = client.client_maintenances.length;
+                        const utolso_karbantartas = (count === 1) ? client.client_maintenances[0].datum : client.client_maintenances[1].datum
+                        return <Table.Row key={client.client_id} onClick={ () => this.selectClient(client.client_id) } className="stripedTableTr">
                             <Table.Cell>{client.cegnev}</Table.Cell>
                             <Table.Cell>{client.szamlazasi_cim}</Table.Cell>
                             <Table.Cell>{client.kamra_cim}</Table.Cell>
-                            <Table.Cell>{client.utolso_karbantartas}</Table.Cell>
+                            <Table.Cell>{utolso_karbantartas}</Table.Cell>
                         </Table.Row>
-                    ))
+                  })
                 }
             </Table.Body>
         </Table>
